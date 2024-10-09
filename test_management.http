@@ -1,0 +1,3 @@
+# Get orders from management-service
+GET http://localhost:2955/orders
+Accept: application/json
