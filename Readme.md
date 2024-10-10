@@ -79,6 +79,7 @@ and based on the request if there are any orders present in order_queue it will 
 ```
 <br>
 And if there are no orders available it give a response such as:
+
 ```bash
 {
   "message": "No orders available"
