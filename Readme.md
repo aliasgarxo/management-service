@@ -52,6 +52,16 @@ python3 main.py
 the management service will be running locally ```http://localhost:2955/orders/```
 
 3. Ensure order_service is running locally or on a VM and send a order request from the order service REST client or by using store_front page.
+send a request from order-service such as:
+
+```bash
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "product": "Cat Food"
+}
+```
 4. Test the API Endpoints
 You can test the API Endpoint from test_management.http file which include the REST API request 
 ```bash 
