@@ -11,37 +11,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Create and start virtual environment
+      - name: Create virtual environment directory
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          mkdir -p ${{ github.workspace }}/venv
+
+      - name: Create and activate virtual environment
+        run: |
+          python -m venv ${{ github.workspace }}/venv
+          source ${{ github.workspace }}/venv/bin/activate
       
       - name: Install dependencies
         run: |
-          source venv/bin/activate
+          source ${{ github.workspace }}/venv/bin/activate
           pip install -r requirements.txt
-        
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
         run: |
-          source venv/bin/activate
-          zip release.zip ./* -r
+          source ${{ github.workspace }}/venv/bin/activate
+          zip -r release.zip ./
 
-      - name: Upload artifact for deployment jobs
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: |
-            release.zip
-            !venv/
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
